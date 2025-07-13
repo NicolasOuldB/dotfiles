@@ -1,0 +1,9 @@
+:root {
+  --zen-colors-primary:   #d4be98 !important; /* foreground (text, icons) */
+  --zen-colors-secondary: #504945 !important; /* UI chrome */
+  --zen-colors-tertiary:  #282828 !important; /* background */
+  --zen-colors-border:    #3c3836 !important; /* subtle borders */
+  --zen-dialog-background: #1d2021 !important; /* modals, popups */
+
+  --zen-font-family: "JetBrains Mono", monospace !important;
+}
