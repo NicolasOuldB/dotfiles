@@ -14,9 +14,6 @@ source /usr/share/nvm/init-nvm.sh
 export VISUAL=nvim
 export EDITOR=nvim
 
-# Editor mode
-set -o vi
-
 # ---------------------
 # Keybings
 # ---------------------
