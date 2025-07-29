@@ -2,6 +2,7 @@ return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
+
     -- Custom Lualine component to show attached language server
     local clients_lsp = function()
       local bufnr = vim.api.nvim_get_current_buf()
