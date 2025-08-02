@@ -6,13 +6,32 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # ---------------------
+# Detect OS
+# ---------------------
+OS="$(uname -s)"
+
+# ---------------------
 # Path and Environment
 # ---------------------
 export NVM_DIR="$HOME/.nvm"
-source /usr/share/nvm/init-nvm.sh
+if [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]]; then
+  source "/opt/homebrew/opt/nvm/nvm.sh"
+elif [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  source "$NVM_DIR/nvm.sh"
+fi
 
 export VISUAL=nvim
 export EDITOR=nvim
+
+# NVM setup (adjust path based on platform)
+export NVM_DIR="$HOME/.nvm"
+if [[ "$OS" == "Darwin" ]]; then
+  # macOS: use Homebrew path if available
+  [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]] && source "/opt/homebrew/opt/nvm/nvm.sh"
+else
+  # Linux default
+  [[ -s "/usr/share/nvm/init-nvm.sh" ]] && source "/usr/share/nvm/init-nvm.sh"
+fi
 
 # ---------------------
 # Keybings
@@ -82,9 +101,26 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 
 # FZF styling
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -a --color=always -F $realpath 2>/dev/null'
+if command -v gls &>/dev/null; then
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'gls -a --color=always -F $realpath 2>/dev/null'
+else
+  zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -a -G -F $realpath 2>/dev/null'
+fi
 
 autoload -Uz compinit && compinit # should stay after zinits and zstyles
 
 # Aliases
-alias ls='ls --color=auto -F'
+if [[ "$OS" == "Darwin" ]]; then
+  # macOS: use `gls` if coreutils is installed
+  if command -v gls &> /dev/null; then
+    alias ls='gls --color=auto -F'
+  else
+    alias ls='ls -G -F'
+  fi
+else
+  alias ls='ls --color=auto -F'
+fi
+
+# Load local overrides (not tracked by stow/dotfiles)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
