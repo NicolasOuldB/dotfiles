@@ -154,8 +154,8 @@ alt-shift-semicolon = 'mode service'
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
-r = ['reload-config', 'mode main']
-#r = ['flatten-workspace-tree', 'mode main'] # reset layout
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
 f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
 
@@ -169,29 +169,29 @@ backspace = ['close-all-windows-but-current', 'mode main']
 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = ['move-node-to-workspace 1 --focus-follows-window']
+run = ['move-node-to-workspace 4 --focus-follows-window']
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
-run = ['move-node-to-workspace 2 --focus-follows-window']
+run = ['move-node-to-workspace 5 --focus-follows-window']
 
 [[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
-run = ['move-node-to-workspace 4 --focus-follows-window']
+run = ['move-node-to-workspace 1 --focus-follows-window']
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.edgemac'
-run = ['move-node-to-workspace 4 --focus-follows-window']
+run = ['move-node-to-workspace 1 --focus-follows-window']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Safari'
-run = ['move-node-to-workspace 4 --focus-follows-window']
+run = ['move-node-to-workspace 1 --focus-follows-window']
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
-run = ['move-node-to-workspace 5 --focus-follows-window']
+run = ['move-node-to-workspace 2 --focus-follows-window']
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
-run = ['move-node-to-workspace 5 --focus-follows-window']
+run = ['move-node-to-workspace 2 --focus-follows-window']
 
