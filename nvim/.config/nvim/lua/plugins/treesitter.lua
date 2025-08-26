@@ -1,5 +1,8 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+  dependencies = {
+    "nvim-treesitter/playground",
+  },
 	build = ":TSUpdate",
 	opts = {
 		ensure_installed = { "lua", "javascript", "json", "typescript", "tsx", "html", "css", "yaml" },
