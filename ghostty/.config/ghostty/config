@@ -46,7 +46,7 @@
 theme = gruvbox-mat
 
 # === Appearence ===
-background-opacity = 0.95
+background-opacity = 1
 
 # === Font Settings ===
 font-family = JetBrainsMono Nerd Font Mono
