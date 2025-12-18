@@ -4,6 +4,8 @@ vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=2")
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.wrap = false
+vim.opt.winborder = "rounded"
 
 vim.opt.guicursor = {
   "n-v-c:block",
