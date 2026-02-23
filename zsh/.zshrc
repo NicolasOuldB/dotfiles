@@ -22,6 +22,7 @@ fi
 
 export VISUAL=nvim
 export EDITOR=nvim
+export NODE_EXTRA_CA_CERTS="$HOME/.beneva/zscaler-bundle.pem"
 
 # NVM setup (adjust path based on platform)
 export NVM_DIR="$HOME/.nvm"
@@ -124,3 +125,5 @@ fi
 # Load local overrides (not tracked by stow/dotfiles)
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
+
+. "$HOME/.local/bin/env"
