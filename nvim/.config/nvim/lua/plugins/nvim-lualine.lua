@@ -3,22 +3,6 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   config = function()
 
-    -- Custom Lualine component to show attached language server
-    local clients_lsp = function()
-      local bufnr = vim.api.nvim_get_current_buf()
-
-      local clients = vim.lsp.get_clients()
-      if next(clients) == nil then
-        return ""
-      end
-
-      local c = {}
-      for _, client in pairs(clients) do
-        table.insert(c, client.name)
-      end
-      return " " .. table.concat(c, "|")
-    end
-
     local custom_gruvbox = require("lualine.themes.gruvbox-material")
 
     -- Custom colours
@@ -61,9 +45,6 @@ return {
             symbols = { error = " ", warn = " ", info = " ", hint = " " },
             update_in_insert = true,
           },
-        },
-        lualine_y = {
-          {clients_lsp, separator = { left = "", right = "" }}
         },
         lualine_z = {
           { "location", separator = { left = "", right = " " }, icon = "" },
