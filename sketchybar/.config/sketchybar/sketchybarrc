@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+source "$CONFIG_DIR/colors.sh"
+
+if ! command -v aerospace >/dev/null 2>&1; then
+  sketchybar --bar hidden=on
+  exit 0
+fi
+
+sketchybar --bar height=36 \
+                 margin=12 \
+                 y_offset=0 \
+                 padding_left=0 \
+                 padding_right=0 \
+                 color=$TRANSPARENT
+
+sketchybar --default updates=when_shown \
+                    icon.font="JetBrainsMono Nerd Font:Regular:14.0" \
+                    icon.color=$WHITE \
+                    label.font="JetBrainsMono Nerd Font Mono:Regular:14.0" \
+                    label.color=$LABEL \
+                    background.color=$TRANSPARENT \
+                    y_offset=0
+
+sketchybar --add event aerospace_workspace_change
+
+workspace_ids="$(aerospace list-workspaces --all 2>/dev/null)"
+if [ -z "$workspace_ids" ]; then
+  workspace_ids="$(aerospace list-workspaces 2>/dev/null)"
+fi
+if [ -z "$workspace_ids" ]; then
+  workspace_ids="1 2 3 4 5 6"
+fi
+
+for sid in $workspace_ids; do
+  sketchybar --add item "space.$sid" left \
+    --set "space.$sid" \
+    width=24 \
+    icon="$sid" \
+    icon.align=center \
+    icon.drawing=on \
+    icon.width=24 \
+    update_freq=3 \
+    padding_left=0 \
+    padding_right=0 \
+    label.drawing=off \
+    background.drawing=on \
+    background.height=24 \
+    background.corner_radius=12 \
+    background.padding_left=2 \
+    background.padding_right=2 \
+    click_script="aerospace workspace $sid" \
+    script="/bin/bash $PLUGIN_DIR/aerospace_space.sh" \
+    --subscribe "space.$sid" aerospace_workspace_change
+
+  sketchybar --add item "space_gap.$sid" left \
+    --set "space_gap.$sid" \
+    width=8 \
+    icon.drawing=off \
+    label.drawing=off \
+    background.drawing=off
+done
+
+sketchybar --add bracket spaces '/space\..*/' \
+  --set spaces background.color=$SURFACE \
+               background.corner_radius=15 \
+               background.border_width=1 \
+               background.border_color=$BLUE \
+               blur_radius=2 \
+               background.height=30
+
+sketchybar --default background.color=$SURFACE \
+                    blur_radius=2 \
+                    background.corner_radius=15 \
+                    background.height=30 \
+                    icon.padding_left=12 \
+                    icon.padding_right=4 \
+                    label.padding_left=4 \
+                    label.padding_right=12 \
+                    background.padding_left=18 \
+                    background.border_width=1
+
+sketchybar --add item title center \
+  --set title label.padding_left=12 \
+             label="Title" \
+             background.padding_left=0 \
+             icon.padding_left=0 \
+             icon.padding_right=0 \
+             script="/bin/bash $PLUGIN_DIR/title.sh" \
+             background.border_color=$TITLE_BORDER \
+             update_freq=2 \
+             label.max_chars=54 \
+  --subscribe title front_app_switched aerospace_workspace_change
+
+sketchybar --add item time right \
+  --set time icon= \
+            icon.color=$BLUE \
+            background.border_color=$BLUE \
+            label="$(date '+%I:%M %p')" \
+            script="/bin/bash $PLUGIN_DIR/time.sh" \
+            update_freq=1
+
+sketchybar --add item date right \
+  --set date icon= \
+            icon.color=$GREEN \
+            background.border_color=$GREEN \
+            label="$(date '+%a %b %d')" \
+            script="/bin/bash $PLUGIN_DIR/date.sh" \
+            update_freq=10
+
+sketchybar --add item battery right \
+  --set battery icon= \
+               icon.color=$RED \
+               background.border_color=$RED \
+               label="--%" \
+               script="/bin/bash $PLUGIN_DIR/battery.sh" \
+               update_freq=20
+
+sketchybar --hotload on
+sketchybar --update
