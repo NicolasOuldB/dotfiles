@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Source colors from sketchybar config
+CONFIG_DIR="${CONFIG_DIR:-$HOME/.config/sketchybar}"
+source "$CONFIG_DIR/colors.sh"
+
+# Active window border
+borders active_color="$VIBRANT_ORANGE" \
+         inactive_color="$SURFACE" \
+         width=8 \
+         style=round \
+         corner_radius=8 \
+         order_windows_by_level=on \
+         hide_single_window=on
