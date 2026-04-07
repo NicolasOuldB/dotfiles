@@ -47,6 +47,9 @@ automatically-unhide-macos-hidden-apps = false
 # check-further-callbacks = true
 # run = ['layout floating', 'move-node-to-workspace S']  # The callback itself
 
+# Notify Sketchybar about workspace change
+exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE']
+
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'
 run = 'layout floating'
