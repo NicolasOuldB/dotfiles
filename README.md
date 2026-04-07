@@ -4,3 +4,9 @@
 ```bash
 brew bundle install
 ```
+
+## Stow les fichiers du point
+```bash
+cd ~/dotfiles
+stow aerospace ghostty ...
+```
