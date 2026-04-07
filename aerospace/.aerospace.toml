@@ -1,4 +1,7 @@
-#after-startup-command = ['exec-and-forget sketchybar']
+after-startup-command = [
+  'exec-and-forget sketchybar',
+  'exec-and-forget borders',
+]
 
 # Notify Sketchybar about workspace change
 #exec-on-workspace-change = ['/bin/bash', '-c',
