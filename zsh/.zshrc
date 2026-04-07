@@ -124,6 +124,6 @@ fi
 
 # Load local overrides (not tracked by stow/dotfiles)
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-
+[[ -f ~/.zsh_beneva ]] && source ~/.zsh_beneva
 
 . "$HOME/.local/bin/env"
