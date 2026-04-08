@@ -81,7 +81,7 @@ sketchybar --default background.color=$SURFACE \
                     background.padding_left=18 \
                     background.border_width=1
 
-sketchybar --add item title center \
+sketchybar --add item title left \
   --set title label.padding_left=12 \
              label="Title" \
              background.padding_left=0 \
