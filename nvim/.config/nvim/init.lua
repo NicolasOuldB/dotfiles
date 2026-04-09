@@ -1,4 +1,3 @@
 require("nicolas")
-require("config.lazy")
-
-require("lazy").setup("plugins")
+-- Bootstrap plugins using native vim.pack
+pcall(require, "config.pack")

@@ -1,3 +1,4 @@
+-- Moved startify-custom theme into config namespace for consistency
 local utils = require("alpha.utils")
 
 local if_nil = vim.F.if_nil
@@ -28,7 +29,6 @@ local default_header = {
     hl = "Type",
     shrink_margin = false,
     position = "center",
-    -- wrap = "overflow";
   },
 }
 
@@ -42,10 +42,6 @@ end
 
 local leader = "SPC"
 
---- @param sc string
---- @param txt string
---- @param keybind string? optional
---- @param keybind_opts table? optional
 local function button(sc, txt, keybind, keybind_opts)
     local sc_ = sc:gsub("%s", ""):gsub(leader, "<leader>")
 
@@ -79,8 +75,6 @@ end
 local file_icons = {
     enabled = true,
     highlight = true,
-    -- available: devicons, mini, to use nvim-web-devicons or mini.icons
-    -- if provider not loaded and enabled is true, it will try to use another provider
     provider = "devicons",
 }
 
@@ -136,16 +130,17 @@ local mru_opts = {
     end,
     autocd = false
 }
+
 local function truncate_middle_exact(s, max_len)
     local ellipsis = "..."
     local ellipsis_len = #ellipsis
 
     if #s <= max_len then
-        return s .. string.rep(" ", max_len - #s)  -- pad if needed
+        return s .. string.rep(" ", max_len - #s)
     end
 
     if max_len <= ellipsis_len then
-        return ellipsis:sub(1, max_len)  -- fallback: just show "..." or less
+        return ellipsis:sub(1, max_len)
     end
 
     local keep_len = max_len - ellipsis_len
@@ -158,9 +153,6 @@ local function truncate_middle_exact(s, max_len)
     return front .. ellipsis .. back
 end
 
---- @param start number
---- @param cwd string? optional
---- @param items_number number? optional number of items to generate, default = 10
 local function mru(start, cwd, items_number, opts)
     opts = opts or mru_opts
     items_number = if_nil(items_number, 10)
@@ -214,13 +206,6 @@ local section = {
       button("e", "New file", "<cmd>ene <CR>"),
     },
   },
-  -- note about MRU: currently this is a function,
-  -- since that means we can get a fresh mru
-  -- whenever there is a DirChanged. this is *really*
-  -- inefficient on redraws, since mru does a lot of I/O.
-  -- should probably be cached, or maybe figure out a way
-  -- to make it a reference to something mutable
-  -- and only mutate that thing on DirChanged
   mru = {
     type = "group",
     val = {
@@ -298,11 +283,8 @@ return {
     mru_opts = mru_opts,
     section = section,
     config = config,
-    -- theme config
     file_icons = file_icons,
-    -- deprecated
     nvim_web_devicons = file_icons,
     leader = leader,
-    -- deprecated
     opts = config,
 }
