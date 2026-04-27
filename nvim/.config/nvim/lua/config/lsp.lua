@@ -54,11 +54,34 @@ local servers = {
 -- Ensure mason-lspconfig/mason are installed via pack; use them to manage binaries.
 -- Register configs and enable them via native APIs
 local to_setup = { "lua_ls", "ts_ls", "taplo", "eslint" }
-for _, name in ipairs(to_setup) do
-  local opts = { on_attach = on_attach, capabilities = capabilities }
-  if servers[name] then opts.settings = servers[name] end
-  vim.lsp.config(name, opts)
-  vim.lsp.enable(name)
+
+-- Prefer the native Neovim API (vim.lsp.config). Use mason-lspconfig.setup_handlers
+-- to let Mason call these handlers for installed servers. If mason-lspconfig is
+-- not available, fall back to registering the list directly via native API.
+local ok_mason_lsp, mason_lspconfig = pcall(require, "mason-lspconfig")
+if ok_mason_lsp and mason_lspconfig then
+  mason_lspconfig.setup_handlers({
+    -- default handler for all servers
+    function(server_name)
+      local opts = { on_attach = on_attach, capabilities = capabilities }
+      if servers[server_name] then opts.settings = servers[server_name] end
+      -- Register with native API (avoid require('lspconfig')[server].setup)
+      pcall(function()
+        vim.lsp.config(server_name, opts)
+        vim.lsp.enable(server_name)
+      end)
+    end,
+  })
+else
+  -- Fallback: register the explicit list via native API.
+  for _, name in ipairs(to_setup) do
+    local opts = { on_attach = on_attach, capabilities = capabilities }
+    if servers[name] then opts.settings = servers[name] end
+    pcall(function()
+      vim.lsp.config(name, opts)
+      vim.lsp.enable(name)
+    end)
+  end
 end
 
 return true

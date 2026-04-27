@@ -62,14 +62,19 @@
                     }
                 ]
             },
-            "name": "Default",
-            "selected": true,
-            "simple_modifications": [
+            "devices": [
                 {
-                    "from": { "key_code": "caps_lock" },
-                    "to": [{ "key_code": "escape" }]
+                    "identifiers": { "is_keyboard": true },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "escape" }]
+                        }
+                    ]
                 }
             ],
+            "name": "Default",
+            "selected": true,
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
                 "keyboard_german_pc_layout": false,

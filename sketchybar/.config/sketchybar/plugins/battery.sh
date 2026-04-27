@@ -30,9 +30,9 @@ esac
 if [ -n "$charging" ]; then
   icon=""
   color="$VIBRANT_GREEN"
-elif [ "$percentage" -ge 80 ]; then
+elif [ "$percentage" -ge 60 ]; then
   color="$VIBRANT_GREEN"
-elif [ "$percentage" -ge 40 ]; then
+elif [ "$percentage" -ge 30 ]; then
   color="$VIBRANT_ORANGE"
 else
   color="$RED"

@@ -59,6 +59,9 @@ if ok then require("config.plugins.none-ls").setup() end
 ok, _ = pcall(require, "config.plugins.telescope")
 if ok then require("config.plugins.telescope").setup() end
 
+ok, _ = pcall(require, "config.plugins.mason")
+if ok then require("config.plugins.mason") end
+
 ok, _ = pcall(require, "config.plugins.undotree")
 if ok then require("config.plugins.undotree").setup() end
 
