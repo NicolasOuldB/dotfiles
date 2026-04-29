@@ -1,5 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.linebreak = true
@@ -11,6 +12,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+vim.opt.signcolumn = "yes"
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set('i', '(', '()<Esc>i')
@@ -18,15 +20,23 @@ vim.keymap.set('i', '[', '[]<Esc>i')
 vim.keymap.set('i', '{', '{}<Esc>i')
 vim.keymap.set('i', "'", "''<Esc>i")
 vim.keymap.set('i', '"', '""<Esc>i')
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Centers cursor when scrolling down" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Centers cursor when scrolling up" })
+vim.keymap.set("n", "n", "nzzzv", { desc = "Centers cursor for next search" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Centers cursor for previous search" })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves selected text one down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves selected text one up" })
+vim.keymap.set('v', '<', '<gv', { desc = "Stays in visual mod after shifting"})
+vim.keymap.set('v', '>', '>gv')
 
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.hlsearch = true
 
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', ':nohlsearch<CR>')
 
 -- Plugins
 vim.pack.add{
-	{ src = 'https://github.com/neovim/nvim-lspconfig' },
+    { src = 'https://github.com/neovim/nvim-lspconfig' },
     { src = 'https://github.com/mason-org/mason.nvim' },
     { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
     { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
@@ -67,4 +77,3 @@ vim.lsp.config('lua_ls', {
     },
   },
 })
-
