@@ -12,7 +12,7 @@ local plugins = {
   "https://github.com/nvim-tree/nvim-web-devicons", -- lualine dependency
 
   -- Treesitter
-  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
   -- Telescope (fuzzy finder)
   "https://github.com/nvim-telescope/telescope.nvim",
   "https://github.com/nvim-lua/plenary.nvim",

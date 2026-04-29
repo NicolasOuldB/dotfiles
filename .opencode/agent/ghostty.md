@@ -15,20 +15,20 @@ maintainers: ["NicolasOuld"]
 
 # Ghostty Subagent (macOS)
 
-Summary
+## Summary
 - Diagnose Ghostty terminal service/configuration issues and provide small, reviewable patch templates for common fixes (permissions, socket path, launchd plist skeleton).
 - Advice-only: provide diagnostics and patch templates; do not modify files automatically.
 
-Scope
+## Scope
 - By default operates only on files inside this repository (for repo-scoped ghostty configs). If you supply an explicit path (for example a global config under `~/.config/ghostty`), the subagent will ask for permission before reading outside the repo.
 
-Quick checks
+## Quick checks
 - Is a ghostty config present in expected locations (repo path, ~/.config/ghostty, /etc/ghostty)?
 - Are socket or pid paths writable by the service user and not in conflict with another process?
 - Is a launchd/daemon entry installed (launchctl), and does it show as loaded or failed?
 - Are permissions on the config and runtime directories too permissive or too restrictive?
 
-Diagnostic commands (Execute locally)
+## Diagnostic commands (Execute locally)
 - Check for a repo-scoped config (example paths):
 ```sh
 ls -la .ghostty || ls -la .config/ghostty || ls -la ~/.config/ghostty || true
@@ -55,7 +55,7 @@ stat -f "%N %Su %Sp" /path/to/socket || true
 ls -la /path/to/run || true
 ```
 
-Patch templates
+## Patch templates
 - fix-permissions: ensure runtime directories and socket are owned by the service user and not world-writable.
 
 ```sh
@@ -70,7 +70,7 @@ chmod 750 /var/run/ghostty
 ```diff
 --- a/ghostty/config.yaml
 +++ b/ghostty/config.yaml
-@@
+@@ -1 +1 @@
  socket_path: "/var/run/ghostty/ghostty.sock"
 ```
 
@@ -101,9 +101,9 @@ chmod 750 /var/run/ghostty
 </plist>
 ```
 
-FAQ
+## FAQ
 - Q: "Ghostty can't bind socket — what then?"
   A: "Check socket_path, directory ownership/permissions, and whether another process holds the socket. Use pgrep and stat/ls to inspect."
 
-References
+## References
 - Ghostty project docs (if available) — check your project's README or upstream docs for config schema and daemon options.

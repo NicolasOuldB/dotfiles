@@ -2,7 +2,7 @@ local M = {}
 
 function M.setup()
   require("nvim-treesitter.configs").setup({
-    ensure_installed = { "lua", "javascript", "json", "typescript", "tsx", "html", "css", "yaml" },
+    ensure_installed = { "lua", "javascript", "json", "typescript", "tsx", "html", "css", "yaml", "xml", "bash", "markdown", "markdown_inline", "diff" },
     highlight = { enable = true },
     indent = { enable = true },
   })
